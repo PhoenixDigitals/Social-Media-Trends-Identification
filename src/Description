@@ -1,0 +1,96 @@
+•	Java Files:
+o	hashtagcounter.java
+o	MaxFibonacciHeap.java
+o	Node.java
+
+•	hashtagcounter.java
+
+1.	public class hashtagcounter
+Description: This class is used to take the input of hashtags along with their counts from the file given in the command line and give the most frequent hashtags when queried. It makes use of regular expressions to match the various types of input in the input file and based on the type call a specific function of another class named MaxFibonacciHeap. This class uses the function like insertNode(), increaseKey(), removeMax() and reinsertNode() from the other class.
+2.	public void matchPattern (String inputFilename)
+Description: This function takes input the filename in the form of string and reads the file line by line. It makes use of a HashMap to store the name of each hashtag and its corresponding Node from the MaxFibonacciHeap. If it finds a hashtag, then it stores it in the HashMap. If it finds a query then it calls removeMax() method that number of times. For ‘stop’ in the input file the function exits.
+Input Parameters: String inputFilename
+Return Type: void
+3.	public static void main (String[] args)
+Description: This method is the starting point of the execution of the program. It creates an instance of the hashtagcounter class. It then calls the matchPattern(args[0]) method, in which it passes the input filename given as an command line argument.
+Input Parameters: String[] args
+Return Type: void
+
+
+
+
+
+
+•	MaxFibonacciHeap.java
+
+1.	public class MaxFibonacciHeap
+Description: This class is used to implement the Max Fibonacci Heap data structure. It has a maxNode which stores the current max node of the heap, a HashMap named degreeTable which is used for storing degrees of trees for pairwise combine operation and maxTreesCount which is used to store the number of trees currently present in the Max Fibonacci Heap.
+2.	public MaxFibonacciHeap ()
+Description: This is a constructor of the class MaxFibonacciHeap which initializes the values of maxNode to null, creates a new degreeTable and sets maxTreesCount to 0. 
+3.	Node insertNode (String name, int key)
+Description: This method is used for inserting a new node in the Fibonacci heap. It takes input the name of the hashtag and the count which is the key and creates a new Node. 
+Input Parameters: String name, int key
+Return Type: Node
+4.	void updateMaxNode (Node n)
+Description: This method is used for checking the key of the given node n with the key of the maxNode. If the key of node n is greater, then n becomes the new maxNode.
+Input Parameters: Node n
+Return Type: void
+5.	void increaseKey (Node n, int newKey)
+Description: This method is used for increasing the key of the node n by adding newKey to the original key of node n. If the increased key of node n is greater than its parent, then the node needs to be removed from that tree and reinserted into the Fibonacci heap. For this cut () method is called. 	
+Input Parameters: Node n, int newKey
+Return Type: void
+6.	void cut (Node n)
+Description: This method is used for removing the node n from the current tree and reinsert it into the Fibonacci heap. If the childCut field of the parent of node is set to true, then the parent also needs to be removed. So, the cut function is called again with the parent of node n as the input parameter.
+Input Parameters: Node n
+Return Type: void
+7.	void reinsertNode (Node n)
+Description: This method is used for reinserting the node n back into the Fibonacci heap. It increases the maxTreesCount by 1. It also calls the updateMaxNode (n) method to update the maxNode of the Fibonacci heap.
+Input Parameters: Node n
+Return Type: void
+8.	void removeFromChildrenList (Node n)
+Description: This method is used for removing a child node n from its parent node. After removing the child node, it updates the child references of other children.
+Input Parameters: Node n
+Return Type: void
+9.	Node removeMax ()
+Description: This method is used for removing and returning the maxNode of the Max Fibonacci Heap. If the maxNode has children, then they are reinserted back in the Fibonacci heap. This method calls the pairwiseCombine () method.
+Input Parameters:  -
+Return Type: Node
+10.	void pairwiseCombine (Node n)
+Description: This method is used for performing the pairwise combine operation on the Fibonacci heap. It makes use of the degreeTable, to check whether there are 2 trees with the same degree. If there are 2 such trees, then those are merged using the mergeHeaps () method.
+Input Parameters: Node
+Return Type: void
+11.	void mergeHeaps (Node n1, Node n2)
+Description: This method is used for merging two max trees into one. The tree whose root is greater becomes the parent node of the other tree. The addToChildrenList () method gets called with the node which is going to become the child.
+Input Parameters: Node n1, Node n2
+Return Type: void
+
+
+
+12.	void addToChildrenList (Node n)
+Description: This method is used for adding the node n to the children doubly circular linked list of the parent node.
+Input Parameters: Node n
+Return Type: void
+13.	void findMaxNode ()
+Description: This method is used for finding the new maxNode after pairwise combine in the Fibonacci heap. It traverses all the roots of max trees and finds the greatest root of all and sets that node as the maxNode.	
+Input Parameters: -
+Return Type: void
+14.	void clearDegreeTable ()
+Description: This method is used for clearing the HashMap called degreeTable, which stores the degrees of trees in the pairwise combine function.
+Input Parameters: -
+Return Type: void
+
+•	Node.java
+
+1.	public class Node
+Description: This class is used to define the structure of the node which is used in MaxFibonacciHeap. It has the fields as follows: 
+•	String name;	
+•	int key;
+•	int degree;
+•	Node next;
+•	Node prev;
+•	Node child;
+•	Node parent;
+•	boolean childCut;
+
+2.	public Node (String name, int key)
+Description: This is parameterized constructor of class Node. It is used to initialize the name and key of the node along with the other class variables.
