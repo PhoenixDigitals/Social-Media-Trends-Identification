@@ -1,0 +1,6 @@
+• Place java files, input file and makefile in the same directory.
+• Open the terminal and change directory to where the files are located.
+• For the compilation, type: make -f project.mak
+• After compilation, hashtagcounter.class, MaxFibonacciHeap.class and Node.class will be generated.
+• To execute program for given input file, type: java hashtagcounter inputFilename.txt
+• You will see output_file.txt with the output in the working directory.
